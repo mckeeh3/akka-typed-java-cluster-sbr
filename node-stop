@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# Use this script to stop one or more Akka cluster nodes. The command line parameters must be from 1 to 9.
+# pkill and kill SIGTERM always did hard kill -9 (SIGKILL) process terminations so switched to Akka Management via curl.
+
+usage() {
+  echo "Usage: $0 nodes - Stop cluster nodes, node numbers must be 1 through 9." ; exit 1
+}
+
+stopNode() {
+  node=$1
+  if [[ $OSTYPE == "cygwin"* ]]; then
+    stopNodeCygwin "$node"
+  else
+    stopNodeLinux "$node"
+  fi
+}
+
+stopNodeLinux() {
+  node=$1
+  port="255"$node
+  echo "Stop node $node on port $port"
+
+  if hash pkill 2>/dev/null; then
+    pkill -f "$(basename "$jarFilename") $port"
+  else
+    echo "Error: pkill command required. For cygwin please intatll the procps-ng package."
+  fi
+}
+
+stopNodeCygwin() {
+  node=$1
+  mgmtPort="855"$node
+  nodePort="255"$node
+
+  httpStatus=$(curl --write-out %{http_code} --max-time 5 --silent --output /dev/null http://localhost:"$mgmtPort"/cluster/members)
+
+  if [[ $httpStatus == 200 ]] ; then
+    echo "Stop node $node on port $nodePort via Akka management port $mgmtPort"
+    curl --silent -X DELETE http://localhost:"$mgmtPort"/cluster/members/cluster@127.0.0.1:"$nodePort" --output /dev/null
+  fi
+}
+
+[ $# -eq 0 ] && usage
+
+scriptPath=$(dirname "$0")
+jarFilename=$(find "$scriptPath"/target -name '*allinone.jar*')
+
+while [[ $# -gt 0 ]]; do
+  node=$1
+  shift
+
+  if [[ $node =~ ^[1-9]$ ]] ; then
+    stopNode "$node"
+  else
+    echo "Cluster node number $node is invalid. The node number must be 1 through 9."
+    usage
+  fi
+done
