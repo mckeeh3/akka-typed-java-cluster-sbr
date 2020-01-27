@@ -29,9 +29,13 @@ public class Runner {
     }
 
     private static Config setupClusterNodeConfig(String port) {
+        String hostIp = port.compareTo("2555") <= 0 ? "127.0.0.1" : "127.0.0.2";
         return ConfigFactory
-                .parseString(String.format("akka.remote.netty.tcp.port=%s%n", port)
-                        + String.format("akka.remote.artery.canonical.port=%s%n", port))
+                .parseString(String.format("akka.remote.artery.canonical.hostname = \"%s\"%n", hostIp)
+                        + String.format("akka.remote.artery.canonical.port=%s%n", port)
+                        + String.format("akka.management.http.hostname = \"%s\"%n", hostIp)
+                        + String.format("akka.management.http.port=%s%n", port.replace("255", "855"))
+                        + String.format("akka.management.http.route-providers-read-only = %s%n", "false"))
                 .withFallback(ConfigFactory.load());
     }
 }
