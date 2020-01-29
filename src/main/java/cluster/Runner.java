@@ -33,7 +33,7 @@ public class Runner {
         return ConfigFactory
                 .parseString(String.format("akka.remote.artery.canonical.hostname = \"%s\"%n", hostIp)
                         + String.format("akka.remote.artery.canonical.port=%s%n", port)
-                        + String.format("akka.management.http.hostname = \"%s\"%n", hostIp)
+                        + String.format("akka.management.http.hostname = \"%s\"%n", "127.0.0.1")
                         + String.format("akka.management.http.port=%s%n", port.replace("255", "855"))
                         + String.format("akka.management.http.route-providers-read-only = %s%n", "false"))
                 .withFallback(ConfigFactory.load());
