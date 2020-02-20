@@ -11,7 +11,7 @@
     <properties>
         <java.version>8</java.version>
         <scala.version>2.13</scala.version>
-        <akka.version>2.6.3</akka.version>
+        <akka.version>2.6.3+5-e7606849</akka.version>
         <akka.http.version>10.1.11</akka.http.version>
         <akka.management.version>1.0.5</akka.management.version>
         <akka.sbr.version>1.1.12</akka.sbr.version>
@@ -26,6 +26,12 @@
             <id>lightbend-commercial</id>
             <name>Lightbend Commercial</name>
             <url>https://repo.lightbend.com/pass/3IG-SKMJwe7nLUXmKvXfJw__MvhNWO052T248hThoac7aeEr/commercial-releases</url>
+        </repository>
+        <repository>
+            <id>akka-snapshots</id>
+            <name>Akka Snapshots</name>
+            <url>https://repo.akka.io/snapshots/</url>
+            <layout>default</layout>
         </repository>
     </repositories>
 

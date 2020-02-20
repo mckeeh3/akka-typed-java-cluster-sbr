@@ -31,6 +31,7 @@ helpNet() {
   echo "./akka net view        # View the current network blocking rules."
   echo "./akka net enable      # Enable packet filtering, which enables blocking network access to cluster nodes. (OSX only)"
   echo "./akka net disable     # Disable packet filtering, which disables blocking network access to cluster nodes. (OSX only)"
+  echo "./akka net localhost2  # Create or remove IP alias 127.0.0.2"
   echo "./akka net partition   # Partition 127.0.0.2 on or off"
 }
 
@@ -118,6 +119,9 @@ netCommand() {
       ;;
     "unblock")
       "$scriptPath"/net-unblock $arguments
+      ;;
+    "localhost2")
+      "$scriptPath"/net-localhost2 $arguments
       ;;
     "partition")
       "$scriptPath"/net-partition $arguments

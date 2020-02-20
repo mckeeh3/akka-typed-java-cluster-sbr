@@ -8,7 +8,7 @@ usage() {
 
 partitionOn() {
   if hash pfctl 2>/dev/null; then
-    (pfctl -sr 2>/dev/null; echo "block drop quick from 127.0.0.1 to 127.0.0.2") | pfctl -f - 2>/dev/null
+    (pfctl -sr 2>/dev/null; echo "block drop quick proto tcp from 127.0.0.1 to 127.0.0.2") | pfctl -f - 2>/dev/null
     echo "Create partition on IP 127.0.0.2 (OSX)"
   elif hash iptables 2>/dev/null; then
     iptables -A INPUT -p tcp -s 127.0.0.2 -j DROP
