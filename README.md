@@ -1,4 +1,7 @@
 ## Akka Java Cluster Example
+> **WARNING**: This README is undergoing extensive modifications.
+
+> **WARNING**: The current contents are not relevant to this project.  
 
 ### Introduction
 
