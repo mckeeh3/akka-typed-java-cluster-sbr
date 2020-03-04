@@ -21,9 +21,5 @@ class Main {
     private static void bootstrap(final ActorContext<Void> context) {
         final ActorRef<ClusterEvent.ClusterDomainEvent> clusterListener = 
             context.spawn(ClusterListenerActor.create(), "clusterListener");
-
-        Cluster.get(context.getSystem())
-            .subscriptions()
-            .tell(Subscribe.create(clusterListener, ClusterEvent.ClusterDomainEvent.class));
     }
 }

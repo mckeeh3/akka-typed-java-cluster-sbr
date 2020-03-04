@@ -16,8 +16,6 @@
         <akka.management.version>1.0.5</akka.management.version>
         <akka.sbr.version>1.1.12</akka.sbr.version>
         <jackson.version>2.10.1</jackson.version>
-        <fst.version>2.56</fst.version>
-        <junit.version>5.5.2</junit.version>
     </properties>
 
     <!-- Akka SBR -->
@@ -104,20 +102,6 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
-        </dependency>
-
-        <!-- Testing -->
-        <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-actor-testkit-typed_${scala.version}</artifactId>
-            <version>${akka.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 

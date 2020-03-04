@@ -41,11 +41,11 @@ class HttpServer {
     }
 
     static void start(ActorSystem<Void> actorSystem) {
-        int port = memberPort(Cluster.get(actorSystem).selfMember());
+        final int port = memberPort(Cluster.get(actorSystem).selfMember());
         if (port >= 2551 && port <= 2559) {
             new HttpServer(port + 7000, actorSystem);
         } else {
-            String message = String.format("HTTP server not started. Node port %d is invalid. The port must be >= 2551 and <= 2559.", port);
+            final String message = String.format("HTTP server not started. Node port %d is invalid. The port must be >= 2551 and <= 2559.", port);
             System.err.printf("%s%n", message);
             throw new RuntimeException(message);
         }
@@ -53,7 +53,7 @@ class HttpServer {
 
     private void startHttpServer() {
         try {
-            CompletionStage<ServerBinding> serverBindingCompletionStage = Http.get(actorSystem.classicSystem())
+            final CompletionStage<ServerBinding> serverBindingCompletionStage = Http.get(actorSystem.classicSystem())
                     .bindAndHandleSync(this::handleHttpRequest, ConnectHttp.toHost("127.0.0.1", port), actorMaterializer);
 
             serverBindingCompletionStage.toCompletableFuture().get(15, TimeUnit.SECONDS);
@@ -84,7 +84,7 @@ class HttpServer {
 
     private HttpResponse htmlFileResponse(String filename) {
         try {
-            String fileContents = readFile(filename);
+            final String fileContents = readFile(filename);
             return HttpResponse.create()
                     .withEntity(ContentTypes.TEXT_HTML_UTF8, fileContents)
                     .withStatus(StatusCodes.ACCEPTED);
@@ -96,7 +96,7 @@ class HttpServer {
 
     private HttpResponse jsFileResponse(String filename) {
         try {
-            String fileContents = readFile(filename);
+            final String fileContents = readFile(filename);
             return HttpResponse.create()
                     .withEntity(ContentTypes.create(MediaTypes.APPLICATION_JAVASCRIPT, HttpCharsets.UTF_8), fileContents)
                     .withStatus(StatusCodes.ACCEPTED);
@@ -108,7 +108,7 @@ class HttpServer {
 
     private HttpResponse jsonResponse() {
         try {
-            String jsonContents = loadNodes(actorSystem).toJson();
+            final String jsonContents = loadNodes(actorSystem).toJson();
             return HttpResponse.create()
                     .withEntity(ContentTypes.create(MediaTypes.APPLICATION_JAVASCRIPT, HttpCharsets.UTF_8), jsonContents)
                     .withHeaders(Collections.singletonList(HttpHeader.parse("Access-Control-Allow-Origin", "*")))
@@ -120,11 +120,11 @@ class HttpServer {
     }
 
     private String readFile(String filename) throws IOException {
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filename);
+        final InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filename);
         if (inputStream == null) {
             throw new FileNotFoundException(String.format("Filename '%s'", filename));
         } else {
-            StringBuilder fileContents = new StringBuilder();
+            final StringBuilder fileContents = new StringBuilder();
 
             try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
                 String line;
@@ -191,7 +191,7 @@ class HttpServer {
     }
 
     private static int memberPort(Member member) {
-        Option<Object> portOption = member.address().port();
+        final Option<Object> portOption = member.address().port();
         if (portOption.isDefined()) {
             return Integer.parseInt(portOption.get().toString());
         }
@@ -202,7 +202,7 @@ class HttpServer {
         return actorSystem.settings().config().getList("akka.cluster.seed-nodes")
                 .stream().map(s -> s.unwrapped().toString())
                 .map(s -> {
-                    String[] split = s.split(":");
+                    final String[] split = s.split(":");
                     return split.length == 0 ? 0 : Integer.parseInt(split[split.length - 1]);
                 }).collect(Collectors.toList());
     }
@@ -229,7 +229,7 @@ class HttpServer {
         void addUnreachable(Member member) {
             final int port = memberPort(member);
             if (isValidPort(port)) {
-                Node node = new Node(port, "unreachable", "unreachable", false, false, false);
+                final Node node = new Node(port, "unreachable", "unreachable", false, false, false);
                 nodes.remove(node);
                 nodes.add(node);
             }
@@ -276,7 +276,7 @@ class HttpServer {
         }
 
         String toJson() {
-            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+            final ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             try {
                 return ow.writeValueAsString(this);
             } catch (JsonProcessingException e) {
