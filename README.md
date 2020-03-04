@@ -1,4 +1,4 @@
-## Akka Java Cluster Example
+## Akka Java Cluster SBR Example
 > **WARNING**: This README is undergoing extensive modifications.
 
 > **WARNING**: The current contents are not relevant to this project.  
@@ -6,12 +6,13 @@
 ### Introduction
 
 This is a Java, Maven, Akka project that demonstrates how to setup a basic
-[Akka Cluster](https://doc.akka.io/docs/akka/current/index-cluster.html).
+[Akka Cluster](https://doc.akka.io/docs/akka/current/index-cluster.html). 
 
 This project is one in a series of projects that starts with a simple Akka Cluster project and progressively builds up to examples of event sourcing and command query responsibility segregation.
 
 The project series is composed of the following GitHub repos:
-* [akka-typed-java-cluster](https://github.com/mckeeh3/akka-typed-java-cluster) (this project)
+* [akka-typed-java-cluster](https://github.com/mckeeh3/akka-typed-java-cluster)
+* [akka-typed-java-cluster-sbr](https://github.com/mckeeh3/akka-typed-java-cluster-sbr) (this project)
 * [akka-typed-java-cluster-aware](https://github.com/mckeeh3/akka-typed-java-cluster-aware)
 * [akka-typed-java-cluster-singleton](https://github.com/mckeeh3/akka-typed-java-cluster-singleton)
 * [akka-typed-java-cluster-sharding](https://github.com/mckeeh3/akka-typed-java-cluster-sharding)

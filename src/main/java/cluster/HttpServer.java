@@ -41,12 +41,13 @@ class HttpServer {
     }
 
     static void start(ActorSystem<Void> actorSystem) {
-        Option<Object> portOption = Cluster.get(actorSystem).selfMember().address().port();
-        if (portOption.isDefined()) {
-            int port = Integer.parseInt(portOption.get().toString());
-            if (port >= 2551 && port <= 2559) {
-                new HttpServer(port + 7000, actorSystem);
-            }
+        int port = memberPort(Cluster.get(actorSystem).selfMember());
+        if (port >= 2551 && port <= 2559) {
+            new HttpServer(port + 7000, actorSystem);
+        } else {
+            String message = String.format("HTTP server not started. Node port %d is invalid. The port must be >= 2551 and <= 2559.", port);
+            System.err.printf("%s%n", message);
+            throw new RuntimeException(message);
         }
     }
 
@@ -137,19 +138,18 @@ class HttpServer {
 
     private static Nodes loadNodes(ActorSystem<Void> actorSystem) {
         final Cluster cluster = Cluster.get(actorSystem);
+        final ClusterEvent.CurrentClusterState clusterState = cluster.state();
 
-        ClusterEvent.CurrentClusterState clusterState = cluster.state();
+        final Set<Member> unreachable = clusterState.getUnreachable();
 
-        Set<Member> unreachable = clusterState.getUnreachable();
-
-        Optional<Member> old = StreamSupport.stream(clusterState.getMembers().spliterator(), false)
+        final Optional<Member> old = StreamSupport.stream(clusterState.getMembers().spliterator(), false)
                 .filter(member -> member.status().equals(MemberStatus.up()))
                 .filter(member -> !(unreachable.contains(member)))
                 .reduce((older, member) -> older.isOlderThan(member) ? older : member);
 
-        Member oldest = old.orElse(cluster.selfMember());
+        final Member oldest = old.orElse(cluster.selfMember());
 
-        List<Integer> seedNodePorts = seedNodePorts(actorSystem);
+        final List<Integer> seedNodePorts = seedNodePorts(actorSystem);
 
         final Nodes nodes = new Nodes(
                 memberPort(cluster.selfMember()),
