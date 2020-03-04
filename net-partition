@@ -9,10 +9,10 @@ usage() {
 partitionOn() {
   if hash pfctl 2>/dev/null; then
     (pfctl -sr 2>/dev/null; echo "block drop quick proto tcp from 127.0.0.1 to 127.0.0.2") | pfctl -f - 2>/dev/null
-    echo "Create partition on IP 127.0.0.2 (OSX)"
+    echo "Create partition between IP 127.0.0.1 and 127.0.0.2 (OSX)"
   elif hash iptables 2>/dev/null; then
-    iptables -A INPUT -p tcp -s 127.0.0.2 -j DROP
-    echo "Create partition on IP 127.0.0.2 (Linux)"
+    iptables -A INPUT -p tcp -s 127.0.0.1 -d 127.0.0.2 -j DROP
+    echo "Create partition between IP 127.0.0.1 and 127.0.0.2 (Linux)"
   else
     echo "This command is currently only available on OSX or Linux systems."
     usage
@@ -22,10 +22,10 @@ partitionOn() {
 partitionOff() {
   if hash pfctl 2>/dev/null; then
     pfctl -f /etc/pf.conf 2>/dev/null
-    echo "Drop partition on IP 127.0.0.2 (OSX)"
+    echo "Drop partition between IP 127.0.0.1 and 127.0.0.2 (OSX)"
   elif hash iptables 2>/dev/null; then
-    iptables -D INPUT -p tcp -s 127.0.0.2 -j DROP
-    echo "Drop partition on IP 127.0.0.2 (Linux)"
+    iptables -D INPUT -p tcp -s 127.0.0.1 -d 127.0.0.2 -j DROP
+    echo "Drop partition between IP 127.0.0.1 and 127.0.0.2 (Linux)"
   else
     echo "This command is currently only available on OSX or Linux systems."
     usage

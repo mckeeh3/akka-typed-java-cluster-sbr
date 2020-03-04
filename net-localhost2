@@ -11,8 +11,8 @@ localhost2Create() {
     ifconfig lo0 alias 127.0.0.2
     echo "Create localhost alias on IP 127.0.0.2 (OSX)"
   elif hash ip 2>/dev/null; then
-    ip 4 addr add 127.0.0.2 dev lo
-    echo "TBD Remove localhost alias on IP 127.0.0.2 (OSX)"
+    ip address add 127.0.0.2/8 dev lo:2
+    echo "Create localhost alias on IP 127.0.0.2 (Linux)"
   else
     echo "This command is currently only available on OSX or Linux systems."
     usage
@@ -24,7 +24,8 @@ localhost2Remove() {
     ifconfig lo0 -alias 127.0.0.2
     echo "Remove localhost alias on IP 127.0.0.2 (OSX)"
   elif hash iptables 2>/dev/null; then
-    echo "TBD - Remove localhost alias on IP 127.0.0.2 (Linux)"
+    ip address del 127.0.0.2/8 dev lo:2
+    echo "Remove localhost alias on IP 127.0.0.2 (Linux)"
   else
     echo "This command is currently only available on OSX or Linux systems."
     usage
