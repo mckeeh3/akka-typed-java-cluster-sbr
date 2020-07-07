@@ -11,20 +11,13 @@
     <properties>
         <java.version>8</java.version>
         <scala.version>2.13</scala.version>
-        <akka.version>2.6.3+5-e7606849</akka.version>
+        <akka.version>2.6.5+101-0969e9d5</akka.version>
         <akka.http.version>10.1.11</akka.http.version>
         <akka.management.version>1.0.5</akka.management.version>
-        <akka.sbr.version>1.1.12</akka.sbr.version>
         <jackson.version>2.10.1</jackson.version>
     </properties>
 
-    <!-- Akka SBR -->
     <repositories>
-        <repository>
-            <id>lightbend-commercial</id>
-            <name>Lightbend Commercial</name>
-            <url>https://repo.lightbend.com/pass/3IG-SKMJwe7nLUXmKvXfJw__MvhNWO052T248hThoac7aeEr/commercial-releases</url>
-        </repository>
         <repository>
             <id>akka-snapshots</id>
             <name>Akka Snapshots</name>
@@ -43,13 +36,6 @@
             <groupId>com.typesafe.akka</groupId>
             <artifactId>akka-cluster-typed_${scala.version}</artifactId>
             <version>${akka.version}</version>
-        </dependency>
-
-        <!-- Akka SBR -->
-        <dependency>
-            <groupId>com.lightbend.akka</groupId>
-            <artifactId>akka-split-brain-resolver_${scala.version}</artifactId>
-            <version>${akka.sbr.version}</version>
         </dependency>
 
         <!-- Akka HTTP -->
