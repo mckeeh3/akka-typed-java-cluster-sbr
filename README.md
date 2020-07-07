@@ -171,4 +171,39 @@ Follow the steps above to download, build, run, and bring up a dashboard in your
 
 ![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-03.png)
 
-![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-04.png)
+ 2601  sudo ./akka net enable
+ 2602  sudo ./akka net localhost2 create
+ 2603  ./akka net view
+ 2604  sudo ./akka net view
+ 2605  ./akka cluster start
+ 2606  less /tmp/akka-typed-java-cluster-sbr-1.log
+ 2607  ./akka cluster stop
+ 2608  gl
+ 2609  gst
+ 2610  ll
+ 2611  grep management cluster-*
+ 2612  bat cluster-start
+ 2613  bat node-start
+ 2614  less /tmp/akka-typed-java-cluster-sbr-1.log
+ 2615  ./akka cluster stop
+ 2616  ./akka cluster start
+ 2617  less /tmp/akka-typed-java-cluster-sbr-1.log
+ 2618  gl
+ 2619  ./akka cluster stop
+ 2620  ./akka cluster start
+ 2621  less /tmp/akka-typed-java-cluster-sbr-1.log
+ 2622* ../akka-typed-java-cluster-sbr
+ 2623* ./akka node kill 7
+ 2624* ./akka node start 7
+ 2625  ./akka
+ 2626  sudo ./akka net partition on
+ 2627* sudo ./akka net partition off
+ 2628* ./akka cluster start
+ 2629* less /tmp/akka-typed-java-cluster-sbr-1.log
+ 2630* sudo ./akka net partition on
+ 2631* ./akka node start 6 7 8 9
+ 2632* sudo ./akka net partition off
+ 2633* sudo ./akka net partition on
+ 2634* ./akka node start 6 7 8 9
+ 2635* sudo ./akka net partition off
+ 2636  docs/images![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-04.png)
