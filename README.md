@@ -165,4 +165,10 @@ $ ./akka cluster dashboard
 ~~~
 Follow the steps above to download, build, run, and bring up a dashboard in your default web browser.
 
-![Dashboard 1](docs/images/akka-typed-java-cluster-dashboard-sbr-01.png)
+![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-01.png)
+
+![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-02.png)
+
+![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-03.png)
+
+![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-04.png)
