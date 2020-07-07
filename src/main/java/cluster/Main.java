@@ -10,16 +10,16 @@ import akka.cluster.typed.Cluster;
 import akka.cluster.typed.Subscribe;
 
 class Main {
-    static Behavior<Void> create() {
-        return Behaviors.setup(context -> {
-            bootstrap(context);
+  static Behavior<Void> create() {
+    return Behaviors.setup(context -> {
+      bootstrap(context);
 
-            return Behaviors.receive(Void.class).onSignal(Terminated.class, signal -> Behaviors.stopped()).build();
-        });
-    }
+      return Behaviors.receive(Void.class).onSignal(Terminated.class, signal -> Behaviors.stopped()).build();
+    });
+  }
 
-    private static void bootstrap(final ActorContext<Void> context) {
-        final ActorRef<ClusterEvent.ClusterDomainEvent> clusterListener = 
-            context.spawn(ClusterListenerActor.create(), "clusterListener");
-    }
+  private static void bootstrap(final ActorContext<Void> context) {
+    final ActorRef<ClusterEvent.ClusterDomainEvent> clusterListener =
+        context.spawn(ClusterListenerActor.create(), "clusterListener");
+  }
 }

@@ -11,20 +11,11 @@
     <properties>
         <java.version>8</java.version>
         <scala.version>2.13</scala.version>
-        <akka.version>2.6.5+101-0969e9d5</akka.version>
-        <akka.http.version>10.1.11</akka.http.version>
-        <akka.management.version>1.0.5</akka.management.version>
+        <akka.version>2.6.6</akka.version>
+        <akka.http.version>10.1.12</akka.http.version>
+        <akka.management.version>1.0.8</akka.management.version>
         <jackson.version>2.10.1</jackson.version>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>akka-snapshots</id>
-            <name>Akka Snapshots</name>
-            <url>https://repo.akka.io/snapshots/</url>
-            <layout>default</layout>
-        </repository>
-    </repositories>
 
     <dependencies>
         <dependency>

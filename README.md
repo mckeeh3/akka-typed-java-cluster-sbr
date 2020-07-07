@@ -1,7 +1,4 @@
 ## Akka Java Cluster SBR Example
-> **WARNING**: This README is undergoing extensive modifications.
-
-> **WARNING**: The current contents are not relevant to this project.  
 
 ### Introduction
 
@@ -14,10 +11,10 @@ The project series is composed of the following GitHub repos:
 * [akka-typed-java-cluster](https://github.com/mckeeh3/akka-typed-java-cluster)
 * [akka-typed-java-cluster-sbr](https://github.com/mckeeh3/akka-typed-java-cluster-sbr) (this project)
 * [akka-typed-java-cluster-aware](https://github.com/mckeeh3/akka-typed-java-cluster-aware)
-* [akka-typed-java-cluster-singleton](https://github.com/mckeeh3/akka-typed-java-cluster-singleton)
-* [akka-typed-java-cluster-sharding](https://github.com/mckeeh3/akka-typed-java-cluster-sharding)
-* [akka-typed-java-cluster-persistence](https://github.com/mckeeh3/akka-typed-java-cluster-persistence)
-* [akka-typed-java-cluster-persistence-query](https://github.com/mckeeh3/akka-typed-java-cluster-persistence-query)
+* [akka-typed-java-cluster-singleton](https://github.com/mckeeh3/akka-typed-java-cluster-singleton) (coming soon)
+* [akka-typed-java-cluster-sharding](https://github.com/mckeeh3/akka-typed-java-cluster-sharding) (coming soon)
+* [akka-typed-java-cluster-persistence](https://github.com/mckeeh3/akka-typed-java-cluster-persistence) (coming soon)
+* [akka-typed-java-cluster-persistence-query](https://github.com/mckeeh3/akka-typed-java-cluster-persistence-query) (coming soon)
 
 Each project can be cloned, built, and runs independently of the other projects.
 
