@@ -9,7 +9,6 @@ import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
 import akka.http.javadsl.model.*;
-import akka.stream.ActorMaterializer;
 import akka.stream.Materializer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
