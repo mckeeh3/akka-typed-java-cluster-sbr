@@ -165,45 +165,56 @@ $ ./akka cluster dashboard
 ~~~
 Follow the steps above to download, build, run, and bring up a dashboard in your default web browser.
 
+### Manually Trigger a Network Partition
+
+Follow these steps to manually introduce a network partition.
+
+These steps have been tested with Linux and Mac OSX.
+
+On the OSX, before starting an Akka cluster manually enable `localhost2`. This step is not requires for Linux systems.
+
+~~~bash
+$ sudo ./akka net enable
+$ sudo ./akka net localhost2 create
+~~~
+~~~
+Create localhost alias on IP 127.0.0.2 (OSX)
+~~~
+
+Start a cluster with the default 9 nodes. Then start the dashboard.
+
+~~~bash
+$ ./akka cluster start
+$ ./akka cluster dashboard
+~~~
+
 ![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-01.png)
+
+Wait for all of the node to start showing a green up status on the dashboard.
+
+Next, manually introduce a network partition between the first 5 nodes running on 127.0.0.1 and the last 4 nodes running on 127.0.0.2.
+
+~~~bash
+$ sudo ./akka net partition on
+~~~
 
 ![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-02.png)
 
+In a few moments, the dashboard should look like the above image—nodes 1 through 5 each show green with nodes 6 through 9 showing red. The partition has stopped network traffic from the first five nodes to the last four nodes. The first five nodes can communicate with each other, so they show a green status.
+
+The bottom four nodes can communicate with each other, but they are unable to communicate with any of the first five nodes running on 127.0.0.1. This view demonstrates a classic network partition or split-brain.
+
+When network partitions occur, the Akka clusters will wait for a configured period of time in the hopes that the issue will resolve itself. The `akka.cluster.split-brain-resolver.stable-after` configuration setting defines how long the SBR resolver will wait before taking action. There are multiple [SBR Stratigies](https://doc.akka.io/docs/akka/current/split-brain-resolver.html#strategies) available. In this demo, the default keep majority strategy is used.
+
 ![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-03.png)
 
- 2601  sudo ./akka net enable
- 2602  sudo ./akka net localhost2 create
- 2603  ./akka net view
- 2604  sudo ./akka net view
- 2605  ./akka cluster start
- 2606  less /tmp/akka-typed-java-cluster-sbr-1.log
- 2607  ./akka cluster stop
- 2608  gl
- 2609  gst
- 2610  ll
- 2611  grep management cluster-*
- 2612  bat cluster-start
- 2613  bat node-start
- 2614  less /tmp/akka-typed-java-cluster-sbr-1.log
- 2615  ./akka cluster stop
- 2616  ./akka cluster start
- 2617  less /tmp/akka-typed-java-cluster-sbr-1.log
- 2618  gl
- 2619  ./akka cluster stop
- 2620  ./akka cluster start
- 2621  less /tmp/akka-typed-java-cluster-sbr-1.log
- 2622* ../akka-typed-java-cluster-sbr
- 2623* ./akka node kill 7
- 2624* ./akka node start 7
- 2625  ./akka
- 2626  sudo ./akka net partition on
- 2627* sudo ./akka net partition off
- 2628* ./akka cluster start
- 2629* less /tmp/akka-typed-java-cluster-sbr-1.log
- 2630* sudo ./akka net partition on
- 2631* ./akka node start 6 7 8 9
- 2632* sudo ./akka net partition off
- 2633* sudo ./akka net partition on
- 2634* ./akka node start 6 7 8 9
- 2635* sudo ./akka net partition off
- 2636  docs/images![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-04.png)
+Once the SBR `stable-after` wait period is over, the SBR on each side of the network partition kicks in, and they both independently decide how to resolve the issue. With the SBR keep majority strategy, the decision side with the most remaining nodes stays up, and the side with the least number of nodes shuts down. In the above screenshot, the four bottom nodes are downed by the SBR on the majority side of the partition. Simultaneously, the nodes on the other side of the partition are shut down by the SBR.
+
+![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-04.png)
+
+~~~bash
+$ sudo ./akka net partition off
+$ ./akka node start 6 7 8 9
+~~~~
+
+![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-01.png)
