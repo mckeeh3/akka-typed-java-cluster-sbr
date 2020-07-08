@@ -208,9 +208,13 @@ When network partitions occur, the Akka clusters will wait for a configured peri
 
 ![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-03.png)
 
-Once the SBR `stable-after` wait period is over, the SBR on each side of the network partition kicks in, and they both independently decide how to resolve the issue. With the SBR keep majority strategy, the decision side with the most remaining nodes stays up, and the side with the least number of nodes shuts down. In the above screenshot, the four bottom nodes are downed by the SBR on the majority side of the partition. Simultaneously, the nodes on the other side of the partition are shut down by the SBR.
+Once the SBR `stable-after` wait period is over, the SBR on each side of the network partition kicks in, and they both independently decide how to resolve the issue. With the SBR keep majority strategy, the partition with the most remaining nodes stays up, and the partition with the least number of nodes shuts down. In the above screenshot, the four bottom nodes are downed by the SBR on the majority side of the partition. Simultaneously, the nodes on the other side of the partition are shut down by the SBR.
 
 ![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-04.png)
+
+Now that the two split clusters have completed the SBR actions, there is one remaining cluster with five nodes.
+
+Before starting any new nodes, it is necessary to turn off the partition.
 
 ~~~bash
 $ sudo ./akka net partition off
@@ -218,3 +222,5 @@ $ ./akka node start 6 7 8 9
 ~~~~
 
 ![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-01.png)
+
+In this demo, the downed and stopped nodes are manually restarted. In an orchestration environment, such as Kubernetes, the downed node would automatically be replaced.
