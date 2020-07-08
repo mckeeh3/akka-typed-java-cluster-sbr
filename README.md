@@ -18,12 +18,14 @@ The project series is composed of the following GitHub repos:
 
 Each project can be cloned, built, and runs independently of the other projects.
 
-This SBR project is a clone of the [`akka-typed-java-cluster`](https://github.com/mckeeh3/akka-typed-java-cluster) project.
+This Split Brain Resolver project is a clone of the [`akka-typed-java-cluster`](https://github.com/mckeeh3/akka-typed-java-cluster) project.
 A few things were added to this project, mainly enabling the Aka SBR feature, and adding some additional scripts needed to trigger network partitions.
 
-### About Akka Split Brain Resolver
+### About this Akka Split Brain Resolver Project
 
-TODO
+This project is set up to manually trigger network partitions. The provided cluster dashboard visualizes the sequence of events that occur when a running Akka cluster encounters a network partition. The project includes a sample Java Akka Cluster project, scripts for controlling clusters, and a web based cluster dashboard for observing changes in cluster node states as they happen.
+
+Please see the [Split Brain Resolver](https://doc.akka.io/docs/akka/current/split-brain-resolver.html#split-brain-resolver) documentation for details.
 
 ### Installation
 
@@ -85,6 +87,8 @@ Both `stdin` and `stderr` output is sent to a log files in the `/tmp` directory 
 Start a cluster of nine nodes running on ports 2551 to 2559.
 ~~~bash
 $ ./akka cluster start
+~~~
+~~~
 Starting 9 cluster nodes
 Start node 1 on port 2551, management port 8551, HTTP port 9551
 Start node 2 on port 2552, management port 8552, HTTP port 9552
@@ -100,6 +104,8 @@ Start node 9 on port 2559, management port 8559, HTTP port 9559
 Stop all currently running cluster nodes.
 ~~~bash
 $ ./akka cluster stop
+~~~
+~~~
 Stop node 1 on port 2551
 Stop node 2 on port 2552
 Stop node 3 on port 2553
@@ -114,19 +120,25 @@ Stop node 9 on port 2559
 Stop node 3 on port 2553.
 ~~~bash
 $ ./akka node stop 3
+~~~
+~~~
 Stop node 3 on port 2553
 ~~~
 
 Stop nodes 5 and 7 on ports 2555 and 2557.
 ~~~bash
 $ ./akka node stop 5 7
+~~~
+~~~
 Stop node 5 on port 2555
 Stop node 7 on port 2557
 ~~~
 
 Start node 3, 5, and 7 on ports 2553, 2555 and2557.
 ~~~bash
-$ ./akka node start 3 5 7
+$ ./akka node start 3 5
+~~~
+~~~
 Start node 3 on port 2553, management port 8553, HTTP port 9553
 Start node 5 on port 2555, management port 8555, HTTP port 9555
 Start node 7 on port 2557, management port 8557, HTTP port 9557
@@ -135,6 +147,8 @@ Start node 7 on port 2557, management port 8557, HTTP port 9557
 Start a cluster of four nodes on ports 2551, 2552, 2553, and 2554.
 ~~~bash
 $ ./akka cluster start 4
+~~~
+~~~
 Starting 4 cluster nodes
 Start node 1 on port 2551, management port 8551, HTTP port 9551
 Start node 2 on port 2552, management port 8552, HTTP port 9552
@@ -208,7 +222,7 @@ When network partitions occur, the Akka clusters will wait for a configured peri
 
 ![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-03.png)
 
-Once the SBR `stable-after` wait period is over, the SBR on each side of the network partition kicks in, and they both independently decide how to resolve the issue. With the SBR keep majority strategy, the partition with the most remaining nodes stays up, and the partition with the least number of nodes shuts down. In the above screenshot, the four bottom nodes are downed by the SBR on the majority side of the partition. Simultaneously, the nodes on the other side of the partition are shut down by the SBR.
+Once the SBR `stable-after` wait period is over, the SBR on each side of the network partition kicks in, and they both independently decide how to resolve the issue. With the SBR keep majority strategy, the partition with the most remaining nodes stays up, and the partition with the least number of nodes shuts down. In the above screenshot, the four bottom nodes are downed by the SBR on the majority side of the partition. Simultaneously, the nodes on the other side of the  partition are shut down by the SBR.
 
 ![Dashboard 1](docs/images/akka-typed-java-cluster-sbr-04.png)
 
