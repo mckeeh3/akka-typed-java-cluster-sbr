@@ -13,7 +13,7 @@
         <scala.version>2.13</scala.version>
         <akka.version>2.6.10</akka.version>
         <akka.http.version>10.2.0</akka.http.version>
-        <akka.management.version>1.0.8</akka.management.version>
+        <akka.management.version>1.0.9</akka.management.version>
         <jackson.version>2.11.2</jackson.version>
     </properties>
 
