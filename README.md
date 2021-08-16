@@ -1,5 +1,10 @@
 ## Akka Java Cluster SBR Example
 
+> :warning: **Project Deprecated** This project is no longer maintained.
+> This project has been replaced with
+> the [akka-typed-java-cluster](https://github.com/mckeeh3/akka-typed-java-cluster)
+> project.
+
 This is a Java, Maven, Akka project that demonstrates how to setup a basic
 [Akka Cluster](https://doc.akka.io/docs/akka/current/typed/index-cluster.html).
 
@@ -23,6 +28,12 @@ Each project can be cloned, built, and runs independently of the other projects.
 This Split Brain Resolver project is a clone of the [`akka-typed-java-cluster`](https://github.com/mckeeh3/akka-typed-java-cluster) project.
 A few things were added to this project, mainly enabling the Aka SBR feature, and adding some additional scripts needed to trigger network partitions.
 
+- [Akka Java Cluster SBR Example](#akka-java-cluster-sbr-example)
+  - [About this Akka Split Brain Resolver Project](#about-this-akka-split-brain-resolver-project)
+  - [Installation](#installation)
+  - [Run a cluster (Mac, Linux, Cygwin)](#run-a-cluster-mac-linux-cygwin)
+  - [The Cluster Dashboard](#the-cluster-dashboard)
+  - [Manually Trigger a Network Partition](#manually-trigger-a-network-partition)
 ### About this Akka Split Brain Resolver Project
 
 This project is set up to manually trigger network partitions. The provided cluster dashboard visualizes the sequence of events that occur when a running Akka cluster encounters a network partition. The project includes a sample Java Akka Cluster project, scripts for controlling clusters, and a web based cluster dashboard for observing changes in cluster node states as they happen.
